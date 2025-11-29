@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product X — Landing Page</title>
+  <meta name="description" content="Responsive landing page built from a Figma test assignment — includes hero, features, about, services, testimonials, contact." />
+  <style>
+    /* Reset & base */
+    :root{
+      --brand:#0f6cff;
+      --accent:#ff7a59;
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --max-width:1200px;
+      --gap:24px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#e6eef8;background:linear-gradient(180deg,#071026 0%, #051021 100%);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* Navbar */
+    header{position:fixed;inset:0 0 auto 0;z-index:40;padding:18px 0;background:linear-gradient(180deg,rgba(6,10,18,0.6),rgba(6,10,18,0.15));backdrop-filter: blur(6px)}
+    .nav{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#6a9cff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    .btn{background:var(--brand);padding:10px 16px;border-radius:12px;color:white;font-weight:600;border:0;cursor:pointer;box-shadow:0 8px 20px rgba(15,108,255,0.12)}
+    .nav-toggle{display:none;border:0;background:transparent;color:var(--muted);font-weight:700}
+
+    /* Hero */
+    .hero{padding:120px 0 60px;display:flex;gap:40px;align-items:center}
+    .hero-left{flex:1}
+    .eyebrow{display:inline-block;background:linear-gradient(90deg,var(--glass),transparent);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px;margin-bottom:18px}
+    h1{font-size:42px;line-height:1.05;margin:0 0 18px}
+    p.lead{color:var(--muted);margin:0 0 26px}
+    .hero-cta{display:flex;gap:12px}
+    .hero-ill{flex:1;display:flex;align-items:center;justify-content:center}
+    .card-ill{width:420px;height:340px;border-radius:20px;background:linear-gradient(135deg,#02122b, #06233b);box-shadow:0 20px 40px rgba(2,8,20,0.6);padding:18px;position:relative;overflow:hidden}
+
+    /* Features grid */
+    .features{padding:48px 0;padding-top: 8%;}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .feature{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:20px;border-radius:14px}
+    .feature h3{margin:8px 0 6px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    /* About */
+    .about{display:flex;gap:34px;align-items:center;padding:48px 0;padding-top: 8%;}
+    .about img{border-radius:12px;flex:0 0 320px;height:220px;object-fit:cover}
+
+    /* Services (cards) */
+    .services{padding:48px 0;padding-top: 8%;}
+    .services .row{display:flex;gap:18px;flex-wrap:wrap}
+    .service{flex:1 1 280px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px}
+
+    /* Testimonials */
+    .testimonials{padding:48px 0;padding-top: 8%;}
+    .slider{display:flex;gap:18px;overflow:hidden}
+    .testimonial{min-width:320px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px}
+
+    /* Contact */
+    .contact{padding:48px 0;padding-top: 8%;}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:8px;color:#eaf3ff}
+    textarea{grid-column:1 / -1;min-height:120px}
+
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);margin-top:20px}
+
+    /* responsive */
+    @media(max-width:980px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      h1{font-size:36px}
+    }
+    @media(max-width:720px){
+      .nav-toggle{display:block}
+      nav ul{display:none}
+      .hero{flex-direction:column;align-items:flex-start;padding-top:100px}
+      .card-ill{width:100%;height:220px}
+      .features .grid{grid-template-columns:1fr}
+      .about{flex-direction:column}
+      form{grid-template-columns:1fr}
+    }
+
+    /* small scroll reveal */
+    .reveal{opacity:0;transform:translateY(18px);transition:all 600ms cubic-bezier(.2,.9,.3,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">PX</div>
+        <div>
+          <div style="font-weight:700">Product X</div>
+          <div style="font-size:12px;color:var(--muted)">Design → Build</div>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-toggle" aria-expanded="false">Menu</button>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div><button class="btn">Get Started</button></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="eyebrow reveal">New — From Figma to Code</div>
+        <h1 class="reveal">Build beautiful products, faster. Design-driven landing page templates.</h1>
+        <p class="lead reveal">A fully responsive landing page built with semantic HTML, accessible patterns, and minimal vanilla JavaScript. Pick a section and customize the content.</p>
+        <div class="hero-cta reveal">
+          <button class="btn">Start free trial</button>
+          <a href="#features" style="align-self:center;color:var(--muted);font-weight:600">See features →</a>
+        </div>
+      </div>
+      <div class="hero-ill">
+        <div class="card-ill reveal">
+          <!-- simple graphic made with HTML/CSS -->
+          <div style="position:absolute;right:-80px;top:-40px;opacity:0.08;font-size:160px;font-weight:900;color:var(--brand)">PX</div>
+          <div style="display:flex;flex-direction:column;gap:12px;position:relative;z-index:2">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700">Dashboard</div>
+              <div style="font-size:12px;color:var(--muted)">v2.1</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">Active users <strong style="float:right">1,234</strong></div>
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="flex:1;background:linear-gradient(90deg,#07263f,#073153);padding:10px;border-radius:10px">Chart</div>
+              <div style="width:90px;background:linear-gradient(90deg,#073153,#062a45);padding:10px;border-radius:10px;text-align:center">99% uptime</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <h2 class="reveal">Features</h2>
+      <div class="grid reveal">
+        <div class="feature">
+          <strong>Responsive by default</strong>
+          <h3>Mobile-first layouts</h3>
+          <p>Layouts that adapt to any screen size with clean breakpoints and tested components.</p>
+        </div>
+        <div class="feature">
+          <strong>Design-accurate</strong>
+          <h3>Pixel-conscious styles</h3>
+          <p>Carefully tuned spacing, type scale and color palettes that match the Figma design.</p>
+        </div>
+        <div class="feature">
+          <strong>Light JS</strong>
+          <h3>Minimal interactivity</h3>
+          <p>Vanilla JS only — fast and easy to inspect. Navbar toggle, scroll reveal and a tiny slider.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <img src="https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="team" class="reveal">
+      <div>
+        <h2 class="reveal">About Product X</h2>
+        <p class="reveal">We turn design systems into code — quickly. Our mission is to help teams ship delightful front-ends without friction. This template demonstrates how to map Figma sections to semantic HTML and responsive CSS.</p>
+        <div style="display:flex;gap:12px;margin-top:12px" class="reveal">
+          <div style="background:var(--glass);padding:10px;border-radius:10px">Trusted by 120+ teams</div>
+          <div style="background:var(--glass);padding:10px;border-radius:10px">Used in 8 countries</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <h2 class="reveal">What we offer</h2>
+      <div class="row reveal">
+        <div class="service">
+          <h3>Design-to-code</h3>
+          <p>Translate Figma frames into clean, reusable HTML/CSS components.</p>
+        </div>
+        <div class="service">
+          <h3>Performance tuning</h3>
+          <p>Images, lazy-loading, and minimal JS to keep your site fast.</p>
+        </div>
+        <div class="service">
+          <h3>Deployment</h3>
+          <p>Scripts and instructions for GitHub Pages, Netlify or Vercel deployments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+      <h2 class="reveal">Testimonials</h2>
+      <div class="slider reveal" id="slider">
+        <div class="testimonial">
+          <p>"This template saved our team weeks of work — clean and easy to adapt."</p>
+          <div style="margin-top:8px;font-weight:700">— Ananya, PM</div>
+        </div>
+        <div class="testimonial">
+          <p>"Well-documented and visually accurate. The animations feel premium."</p>
+          <div style="margin-top:8px;font-weight:700">— Rahul, Engineer</div>
+        </div>
+        <div class="testimonial">
+          <p>"Great baseline for landing pages — responsive out of the box."</p>
+          <div style="margin-top:8px;font-weight:700">— Meera, Designer</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <h2 class="reveal">Get in touch</h2>
+      <form onsubmit="submitContact(event)" class="reveal">
+        <input type="text" placeholder="Full name" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Message"></textarea>
+        <button class="btn" style="grid-column:1 / -1;justify-self:start">Send message</button>
+      </form>
+    </section>
+
+    <footer class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div>© Product X — Built from Figma test assignment</div>
+        <div style="color:var(--muted)">Made with ❤️ • Responsive • Vanilla JS</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // NAV toggle for mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('nav ul');
+    navToggle?.addEventListener('click', ()=>{
+      const open = navList.style.display === 'flex';
+      navList.style.display = open ? 'none' : 'flex';
+      navToggle.setAttribute('aria-expanded', (!open).toString());
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('visible');
+      });
+    },{threshold:0.15});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Simple slider autoplay for testimonials
+    const slider = document.getElementById('slider');
+    let slidePos = 0;
+    function slideTestimonials(){
+      slidePos += 1;
+      if(slidePos > slider.children.length - 1) slidePos = 0;
+      slider.style.transform = `translateX(${ -slidePos * (slider.children[0].offsetWidth + 18)}px)`;
+    }
+    let slideInterval = setInterval(slideTestimonials, 3800);
+    // Pause on hover
+    slider.addEventListener('mouseenter', ()=>clearInterval(slideInterval));
+    slider.addEventListener('mouseleave', ()=>slideInterval = setInterval(slideTestimonials,3800));
+
+    // Contact form (demo)
+    function submitContact(e){
+      e.preventDefault();
+      alert('Thanks — message sent (demo).');
+      e.target.reset();
+    }
+
+    // Smooth in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (ev)=>{
+        ev.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
